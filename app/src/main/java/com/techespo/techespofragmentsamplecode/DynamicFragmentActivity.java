@@ -23,11 +23,8 @@ public class DynamicFragmentActivity extends AppCompatActivity implements Fragme
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dynamic_fragment);
-        FragmentManager fm =  getSupportFragmentManager();
-        FragmentTransaction t =  fm.beginTransaction();
-        FragmentOne  f1 = new FragmentOne();
-        t.replace(R.id.ll_container,f1);
-        t.commit();
+
+
         ((Button)findViewById(R.id.btn_f1)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -43,7 +40,7 @@ public class DynamicFragmentActivity extends AppCompatActivity implements Fragme
             public void onClick(View v) {
                 FragmentManager fm =  getSupportFragmentManager();
                 FragmentTransaction t =  fm.beginTransaction();
-                FragmentTwo f2 = new FragmentTwo();
+                FragmentTwo f2 = FragmentTwo.newInstance("Value1" ,"Value2");
                 t.replace(R.id.ll_container,f2);
                 t.commit();
             }

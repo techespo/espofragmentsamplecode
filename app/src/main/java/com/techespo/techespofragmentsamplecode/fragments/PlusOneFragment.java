@@ -7,32 +7,31 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
 
 import com.techespo.techespofragmentsamplecode.R;
+import com.google.android.gms.plus.PlusOneButton;
 
-import org.w3c.dom.Text;
 
-
-public class FragmentTwo extends Fragment {
+public class PlusOneFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
+    // The request code must be 0 or greater.
+    private static final int PLUS_ONE_REQUEST_CODE = 0;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
-    private OnFragmentTwoInteractionListener mListener;
+    private OnFragmentInteractionListener mListener;
 
-    public FragmentTwo() {
+    public PlusOneFragment() {
         // Required empty public constructor
     }
 
-    public static FragmentTwo newInstance(String param1, String param2) {
-        FragmentTwo fragment = new FragmentTwo();
+
+    public static PlusOneFragment newInstance(String param1, String param2) {
+        PlusOneFragment fragment = new PlusOneFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -53,28 +52,30 @@ public class FragmentTwo extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_fragment_two, container, false);
-        Button eventB = (Button) v.findViewById(R.id.btn_event);
-        eventB.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mListener.onFragmentInteraction("Dummy Event");
-                TextView txtTitle = (TextView) getActivity().findViewById(R.id.txt_title);
-                txtTitle.setText("Dummy");
-            }
-        });
+        View view = inflater.inflate(R.layout.fragment_plus_one, container, false);
 
-        ((TextView)v.findViewById(R.id.txt_val)).setText("Param One Value: "+mParam1+","+mParam2);
 
-        mListener.onFragmentOptionSelected("Dummy Event selection");
-        return v;
+        return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+    }
+
+    // TODO: Rename method, update argument and hook method into UI event
+    public void onButtonPressed(Uri uri) {
+        if (mListener != null) {
+            mListener.onFragmentInteraction(uri);
+        }
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnFragmentTwoInteractionListener) {
-            mListener = (OnFragmentTwoInteractionListener) context;
+        if (context instanceof OnFragmentInteractionListener) {
+            mListener = (OnFragmentInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
@@ -87,9 +88,10 @@ public class FragmentTwo extends Fragment {
         mListener = null;
     }
 
-    public interface OnFragmentTwoInteractionListener {
+
+    public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onFragmentInteraction(String event);
-        void onFragmentOptionSelected(String event);
+        void onFragmentInteraction(Uri uri);
     }
+
 }
